@@ -1,0 +1,26 @@
+# !!! Rename to settings.toml in production
+
+# WiFi Config
+WIFI_SSID="xxx"
+WIFI_PASSWORD="xxx"
+
+# `1` (true) for DHCP or `0` (false) for fixed IP
+WIFI_DHCP=1
+
+# Use when WIFI_DHCP=0
+WIFI_IP="192.168.1.50"
+WIFI_NETMASK="255.255.255.0"
+WIFI_GATEWAY="192.168.1.1"
+WIFI_IPv4_DNS="8.8.8.8"
+
+# MQTT
+MQTT_PUB_TOPIC="xx/xx"
+MQTT_SUB_TOPIC="xx/xx"
+MQTT_BROKER="mqtt.example.com"
+MQTT_PORT=1883
+MQTT_USER="xxx"
+MQTT_PWD="xxx"
+
+# NTP
+NTP_SERVER="ntp.nic.cz"
+NTP_TZ_OFFSET=1
