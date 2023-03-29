@@ -21,6 +21,13 @@ Any ideas and PR are welcome.
 
 The measurement results are published via MQTT. If you have a Raspberry Pico W connected via [Thonny](https://thonny.org/), you can turn on the ```debug=True``` mod for the library and the results will be displayed in the console.
 
+MQTT has two modes here. The publisher sent the measured values to the topic set in the configuration file in the `MQTT_PUB_TOPIC` constant.
+The second subscriber mode is optional when creating the ```mqtt = hx_mqtt.mqtt(subscriber=True)``` library. The built-in subscriber currently has two functions:
+- `"status"` - returns to the topic in the constants `MQTT_SUB_TOPIC RAM` values, HDD Free, RAM free, IP address, MAC address, etc.
+- `"restart"` - restarts the device.
+
+Calling these functions is simple. In MQTT broker topic defined in `MQTT_SUB_TOPIC` send payload "restart" or "status".
+
 ## How to begin
 
 - Configure settings.toml and remember that MQTT_SUB_TOPIC must be different from MQTT_PUB_TOPIC
