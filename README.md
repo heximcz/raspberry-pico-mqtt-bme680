@@ -1,4 +1,4 @@
-# Library for Raspberry Pico W with CircuitPython with different sensors:
+# Library for Raspberry Pico W with CircuitPython and different sensors:
 
 For my own solution for measuring the temperature in individual rooms of the house, I decided to create my own solution based on a temperature sensor with a Raspberry Pico W, CircuitPython and MQTT.
 
