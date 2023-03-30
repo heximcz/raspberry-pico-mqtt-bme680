@@ -42,6 +42,10 @@ circup install adafruit_minimqtt
 - Compile the libraries you will use. It's really simple. More help on how to do this can be found in [lib/hexim](./lib/hexim). Then copy the *.mpy files on the raspberry pico to the /lib/hexim directory
 - Patience when measuring reference values for the linear function and calibration
 
+## SGP30
+
+The wrapper for SGP30 is also worth mentioning, where I solved the saving and reinitialization of values for eCO2 and TVOC. This is solved by saving the values in the file in time frames according to the specification, where the first value is saved after twelve hours and the next one every hour, with the fact that the values saved in the file are valid for one week. For this solution, the boot.py file must also be copied to the root directory of the Raspberry Pico in order to be able to write to the file.
+
 ## Conclusion
 
 I spent several tens of hours developing and subsequently testing this solution. Therefore, if you use the script or the box yourself, or if you just like it, I will be grateful for your support.
