@@ -45,7 +45,7 @@ class SGP30:
 
         return (eCO2, TVOC)
 
-    def __save_iaq_baseline(self) ->None:
+    def __save_iaq_baseline(self) -> None:
         """
         Save actual IAQ baseline to file with timestamp. After first run,
         values save after 12 hours. After 12 hours will be saved every hour.
