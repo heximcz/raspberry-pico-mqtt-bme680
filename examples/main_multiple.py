@@ -23,14 +23,28 @@ i2c = busio.I2C(scl=board.GP21, sda=board.GP20)
 #from hexim import hx_i2c_scan
 #hx_i2c_scan.scan(i2c)
 
-# BME280 Temperature and more
-bme280 = hx_bme280.BME280(i2c, offset_temperature = 0, offset_pressure = 28, offset_humidity = 0)
+## Data for linear temperature compensation of parasitic heating
+## This is need for compensation if sensor is in the any box with raspberry pico
+## For ignore this function set both "offset_temp_<low/high>" to 0
+lin_comp = {
+    # low temperature
+    "raw_temp_low": 12.6,
+    # temperature difference compared to a calibrated thermometer
+    "offset_temp_low": -1.6,
+    # high temperature
+    "raw_temp_high": 25,
+    # temperature difference compared to a calibrated thermometer
+    "offset_temp_high": -3.6
+}
+
+# BME280 I2C Sensor
+bme280 = hx_bme280.BME280(i2c, lin_comp, offset_pressure = 0, offset_humidity = 0, debug=True)
 
 # OLED display
 oled = hx_ssd1306.SSD1306(i2c)
 
 # SGP30 eCO2/TVOC !!! for this module use boot.py !!!
-sgp30 = hx_sgp30.SGP30(i2c)
+sgp30 = hx_sgp30.SGP30(i2c, debug=True)
 
 while True:
     try:

@@ -5,7 +5,7 @@ import adafruit_sgp30
 
 class SGP30:
 
-    def __init__(self, i2c) -> None:
+    def __init__(self, i2c, debug: bool = False) -> None:
 
         # IAQ file
         self.iaq_file = "iaq_baseline.txt"
@@ -15,6 +15,8 @@ class SGP30:
 
         # Actual UNIX timestamp
         self.now = time.time()
+
+        self.debug = debug
 
         # Create library object on our I2C port
         self.sgp30 = adafruit_sgp30.Adafruit_SGP30(i2c)
@@ -31,16 +33,19 @@ class SGP30:
         # save IAQ baseline if posible
         self.__save_iaq_baseline()
 
+        # get measurement
+        eCO2, TVOC = self.sgp30.iaq_measure()
+
+        if self.debug:
+            print("eCO2: {0}, TVOC: {1}" . format(eCO2, TVOC))
+
         # Set the humidity in g/m3 for eCo2 and TVOC compensation algorithm.
         if comp:
             self.sgp30.set_iaq_relative_humidity(celsius=float(temp), relative_humidity=float(humid))
 
-        # get measurement
-        eCO2, TVOC = self.sgp30.iaq_measure()
-
         return (eCO2, TVOC)
 
-    def __save_iaq_baseline(self):
+    def __save_iaq_baseline(self) ->None:
         """
         Save actual IAQ baseline to file with timestamp. After first run,
         values save after 12 hours. After 12 hours will be saved every hour.
@@ -76,7 +81,7 @@ class SGP30:
             # next time save eCO2 and TVOC every hour
             self.save_iaq_after = 3600
 
-    def __check_iaq_baseline(self):
+    def __check_iaq_baseline(self) -> None:
         """
         Check file with IAQ baseline values for first run. If file exist and
         values are valid, set iaq baseline. Values in this file are valid for one week.
