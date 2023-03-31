@@ -1,9 +1,10 @@
+import busio
 import math
 import adafruit_sht4x
 
 class SHT4x:
 
-    def __init__(self, i2c, offset_temperature = -3.65, offset_humidity = 11, debug=False):
+    def __init__(self, i2c: busio.I2C, offset_temperature: float = 0, offset_humidity: float = 0, debug: bool = False) -> None:
         """
         :param float offset_temperature
         :param float offset_humidity
@@ -38,7 +39,7 @@ class SHT4x:
             return (temperature, humidity, self._dew_point(temperature, humidity))
         return (temperature, humidity)
 
-    def _dew_point(self, temperature, humidity):
+    def _dew_point(self, temperature: float, humidity: float) -> float:
         # https://learn.adafruit.com/adafruit-bme280-humidity-barometric-pressure-temperature-sensor-breakout/python-circuitpython-test
         b = 17.62
         c = 243.12

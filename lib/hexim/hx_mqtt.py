@@ -6,7 +6,6 @@ import json
 import os
 import ssl
 import time
-
 import adafruit_minimqtt.adafruit_minimqtt as MQTT
 import microcontroller
 import socketpool
@@ -14,7 +13,7 @@ import wifi
 
 class mqtt(MQTT.MQTT):
 
-    def __init__(self, subscriber=True, debug=False):
+    def __init__(self, subscriber: bool = True, debug: bool = False) -> None:
         """
         :param bool subscriber: Enable subcriber functions etc. "restart".
             Listen on MQTT_SUB_TOPIC
@@ -69,30 +68,30 @@ class mqtt(MQTT.MQTT):
             self.mqtt_client.subscribe(self.sub_topic)
 
     # Define callback methods which are called when events occur
-    def connect(self, mqtt_client, userdata, flags, rc):
+    def connect(self, mqtt_client, userdata, flags, rc) -> None:
         # This function will be called when the client is connected
         # successfully to the broker.
         print("Connected to MQTT Broker!")
         print("Flags: {0}\nRC: {1}".format(flags, rc))
 
-    def disconnect(self, mqtt_client, userdata, rc):
+    def disconnect(self, mqtt_client, userdata, rc) -> None:
         # This method is called when the client disconnects
         # from the broker.
         print("Disconnected from MQTT Broker!")
 
-    def subscribe(self, mqtt_client, userdata, topic, granted_qos):
+    def subscribe(self, mqtt_client, userdata, topic, granted_qos) -> None:
         # This method is called when the client subscribes to a new feed.
         print("Subscribed to {0} with QOS level {1}".format(topic, granted_qos))
 
-    def unsubscribe(self, mqtt_client, user_data, topic, pid):
+    def unsubscribe(self, mqtt_client, user_data, topic, pid) -> None:
         # This method is called when the client unsubscribes from a feed.
         print("Unsubscribed from {0} with PID {1}".format(topic, pid))
 
-    def publish(self, mqtt_client, userdata, topic, pid):
+    def publish(self, mqtt_client, userdata, topic, pid) -> None:
         # This method is called when the client publishes data to a feed.
         print("Published to {0} with PID {1}".format(topic, pid))
 
-    def message(self, mqtt_client, topic, message):
+    def message(self, mqtt_client, topic, message) -> None:
         # Method callled when a client's subscribed feed has a new value.
         if self.debug:
             print("New message on topic {0}: {1}".format(topic, message))

@@ -1,9 +1,11 @@
 import math
+import busio
 from adafruit_bme280 import basic as adafruit_bme280
+
 
 class BME280:
 
-    def __init__(self, i2c, lin_comp: dict, offset_pressure: float = 0, offset_humidity: float = 0, debug: bool = False) -> None:
+    def __init__(self, i2c: busio.I2C, lin_comp: dict, offset_pressure: float = 0, offset_humidity: float = 0, debug: bool = False) -> None:
         """
         :param float offset_temperature
         :param float offset_pressure

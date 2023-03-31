@@ -1,11 +1,11 @@
 from adafruit_ds18x20 import DS18X20
+from adafruit_onewire.bus import OneWireBus
 
 class DS18B20:
 
-    def __init__(self, ow_bus, offset_temperature = 0):
+    def __init__(self, ow_bus: OneWireBus, offset_temperature: float = 0) -> None:
         """
         :param float offset_temperature
-        :param float offset_humidity
         """
 
         # DS18
@@ -14,9 +14,6 @@ class DS18B20:
         self.offset_temperature = offset_temperature
 
     def get_measurement(self) -> float:
-        """
-        :param bool dew_point: if True add dew_point to return measurements
-        """
         temperature = self.ds18.temperature
         temperature = round(temperature + self.offset_temperature,1)
         return temperature

@@ -1,11 +1,12 @@
 import os
 import time
 import json
+import busio
 import adafruit_sgp30
 
 class SGP30:
 
-    def __init__(self, i2c, debug: bool = False) -> None:
+    def __init__(self, i2c: busio.I2C, debug: bool = False) -> None:
 
         # IAQ file
         self.iaq_file = "iaq_baseline.txt"

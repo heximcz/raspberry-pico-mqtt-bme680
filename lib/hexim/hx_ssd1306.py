@@ -1,4 +1,5 @@
 import time
+import busio
 import displayio
 from adafruit_bitmap_font import bitmap_font
 from adafruit_display_text import label
@@ -6,7 +7,7 @@ import adafruit_displayio_ssd1306
 
 class SSD1306:
 
-    def __init__(self, i2c) -> None:
+    def __init__(self, i2c: busio.I2C) -> None:
 
         displayio.release_displays()
 
@@ -42,7 +43,7 @@ class SSD1306:
 
         display.show(group)
 
-    def showText(self, temp, humid):
+    def showText(self, temp: float, humid: float) -> None:
         """
         One minute to end show params
         :param Any temp: Temperature - showing 40 second

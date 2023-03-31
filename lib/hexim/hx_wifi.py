@@ -6,7 +6,7 @@ import rtc
 import socketpool
 import wifi
 
-def connect(debug=False):
+def connect(debug: bool = False) -> None:
     if debug:
         print("Connecting to WiFi")
 

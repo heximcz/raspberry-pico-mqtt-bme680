@@ -3,8 +3,9 @@ Scan I2C a return address in decimal
 Scanning on: scl=board.GP21, sda=board.GP20
 """
 import sys
+import busio
 
-def scan(i2c):
+def scan(i2c: busio.I2C) -> None:
     while not i2c.try_lock():
         pass
     print("I2C Scan:")

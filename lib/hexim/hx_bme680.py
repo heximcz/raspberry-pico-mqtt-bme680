@@ -1,9 +1,10 @@
 import math
+import busio
 import adafruit_bme680
 
 class BME680:
 
-    def __init__(self, i2c, lin_comp: dict, bme680_address: int = 119, offset_pressure: float = 0, offset_humidity: float = 0, debug: bool = False) -> None:
+    def __init__(self, i2c: busio.I2C, lin_comp: dict, bme680_address: int = 119, offset_pressure: float = 0, offset_humidity: float = 0, debug: bool = False) -> None:
         """
         :param dict lin_comp: data for linear temperature compensation see: self._lin_comp()
         :param float offset_pressure
