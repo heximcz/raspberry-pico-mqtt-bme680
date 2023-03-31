@@ -1,15 +1,15 @@
 # Library for Raspberry Pico W with CircuitPython and different sensors:
 
-For my own solution for measuring the temperature in individual rooms of the house, I decided to create my own solution based on a temperature sensor with a Raspberry Pico W, CircuitPython and MQTT.
+To measure the temperatures of individual rooms,, I decided to create my own solution by implementing temperature sensors with a Raspberry Pico W, CircuitPython and MQTT.
 
 ## Introduction
 This library serves as a wrapper for the standard circuitpython libraries. Since I like simple and readable main.py (code.py), I decided to create my own standard library wrapper. During development I tried several different sensors such as BME280, SHT41, DS18B20, SGP30 and BME680 which I ended up sticking with. I also tested the SSD1306 display.
 
 ## BME680 Box and temperature compensation:
 
-For the sensor BME680 I designed this [box](https://www.printables.com/model/431150-raspberry-pico-w-bme680) and for the SHT41 or similar this [box](https://www.printables.com/model/431152-raspberry-pico-w-sensor-box). After printing the box, I processed it by sanding under water to make it as precise as possible on the contact surfaces and also for the sake of design. When developing the box, I focused on sufficient heat dissipation from the Raspberry Pico's processor and wifi, because whether we like it or not, the Pico gets quite hot and this affects the resulting temperature measurement.
+For the sensor BME680 I designed this [box](https://www.printables.com/model/431150-raspberry-pico-w-bme680) and for the SHT41 or similar this [box](https://www.printables.com/model/431152-raspberry-pico-w-sensor-box). After printing the boxes, I processed them by sanding under water to make the contact surfaces as precise as possible and also for the sake of design. When developing the boxes, I focused on sufficient heat dissipation from the Raspberry Pico's processor and wifi, because whether we like it or not, the Pico gets quite hot and this affects the resulting temperature measurement.
 
-After extensive tests and making five boxes with BME680, I finally had to add a linear function to the script to calculate the temperature compensation difference. The reading of the normal offset from the unmeasured value was insufficient for me, because in different temperatures of the surrounding environment it differed from the measured value differently, depending on the cooling efficiency of the Raspberry Pico and other components. For the reference temperature value, I used a digital thermometer calibrated by a verified laboratory.
+After extensive tests and making five boxes with BME680, I finally added a linear function to the script to calculate the temperature compensation difference. The reading of the normal offset from the unmeasured value was insufficient for me, because depending on the cooling efficiency of the Raspberry Pico and other components, the measured values of the temperatures from the surrounding environment weren’t close enough to the reference values made by a different thermometer. For the reference temperature values, I used a digital thermometer calibrated by a verified laboratory.
 
 To set up the linear function, I recommend making your own measurements. The values from the example may not be valid for your box or for your 3d printing of boxes. I recommend measuring separately for each box, the results may vary slightly. The result depends both on the design of the box itself, on its processing, and on the layout of the components. After initial start-up, let the sensor run for at least 24-48 hours. Then, for each measurement, leave the sensor in the measured environment for at least 30-50 minutes to establish all temperatures in the vicinity of the calibrated meter as shown in the following picture.
 
@@ -44,7 +44,7 @@ circup install adafruit_minimqtt
 
 ## SGP30
 
-The wrapper for SGP30 is also worth mentioning, where I solved the saving and reinitialization of values for eCO2 and TVOC. This is solved by saving the values in the file in time frames according to the specification, where the first value is saved after twelve hours and the next one every hour, with the fact that the values saved in the file are valid for one week. For this solution, the boot.py file must also be copied to the root directory of the Raspberry Pico in order to be able to write to the file.
+The wrapper for SGP30 is also worth mentioning, where I solved the saving and reinitialization of values for eCO2 and TVOC. This is solved by saving the values in the file in time frames according to the specification, where the first value is saved after twelve hours and the next one every hour, with the fact that the values saved in the file are valid for one week. For this method, the boot.py file must also be copied to the root directory of the Raspberry Pico in order to be able to write to the file.
 
 ## Conclusion
 
