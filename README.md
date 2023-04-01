@@ -7,7 +7,11 @@ This library serves as a wrapper for the standard circuitpython libraries. Since
 
 ## BME680 Box and temperature compensation:
 
-For the sensor BME680 I designed this [box](https://www.printables.com/model/431150-raspberry-pico-w-bme680) and for the SHT41 or similar this [box](https://www.printables.com/model/431152-raspberry-pico-w-sensor-box). After printing the boxes, I processed them by sanding under water to make the contact surfaces as precise as possible and also for the sake of design. When developing the boxes, I focused on sufficient heat dissipation from the Raspberry Pico's processor and wifi, because whether we like it or not, the Pico gets quite hot and this affects the resulting temperature measurement.
+For the sensor BME680 I designed this [box](https://www.printables.com/model/431150-raspberry-pico-w-bme680) and for the SHT41 or similar this [box](https://www.printables.com/model/431152-raspberry-pico-w-sensor-box). 
+
+![box_bme680.jpg](./docs/box_bme680.jpg)
+
+After printing the boxes, I processed them by sanding under water to make the contact surfaces as precise as possible and also for the sake of design. When developing the boxes, I focused on sufficient heat dissipation from the Raspberry Pico's processor and wifi, because whether we like it or not, the Pico gets quite hot and this affects the resulting temperature measurement.
 
 After extensive tests and making five boxes with BME680, I finally added a linear function to the script to calculate the temperature compensation difference. The reading of the normal offset from the unmeasured value was insufficient for me, because depending on the cooling efficiency of the Raspberry Pico and other components, the measured values of the temperatures from the surrounding environment weren’t close enough to the reference values made by a different thermometer. For the reference temperature values, I used a digital thermometer calibrated by a verified laboratory.
 
