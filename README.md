@@ -1,4 +1,4 @@
-# Library for Raspberry Pico W with CircuitPython and different sensors:
+# Library for Raspberry Pico W with CircuitPython and different sensors
 
 To measure the temperatures of individual rooms,, I decided to create my own solution by implementing temperature sensors with a Raspberry Pico W, CircuitPython and MQTT.
 
@@ -49,6 +49,10 @@ circup install adafruit_minimqtt
 ## SGP30
 
 The wrapper for SGP30 is also worth mentioning, where I solved the saving and reinitialization of values for eCO2 and TVOC. This is solved by saving the values in the file in time frames according to the specification, where the first value is saved after twelve hours and the next one every hour, with the fact that the values saved in the file are valid for one week. For this method, the boot.py file must also be copied to the root directory of the Raspberry Pico in order to be able to write to the file.
+
+## Wiring
+
+![wiring.png](./docs/wiring.png)
 
 ## Conclusion
 
