@@ -13,10 +13,11 @@ import wifi
 
 class mqtt(MQTT.MQTT):
 
-    def __init__(self, subscriber: bool = True, debug: bool = False) -> None:
+    def __init__(self, subscriber: bool = True, is_ssl: bool = False, debug: bool = False) -> None:
         """
         :param bool subscriber: Enable subcriber functions etc. "restart".
             Listen on MQTT_SUB_TOPIC
+        :param bool is_ssl: Enable custom certificate and ca file. See: setting-default.toml and README
         :param bool debug: Enable create debug callbacks
         """
 
@@ -27,6 +28,15 @@ class mqtt(MQTT.MQTT):
         # Create a socket pool
         self.socket = socketpool.SocketPool(wifi.radio)
 
+        # SSL Context
+        ssl_context = ssl.create_default_context()
+        if is_ssl:
+            with open(os.getenv('MQTT_SSL_CA'), "rb") as f:
+                ca_cert = f.read()
+            ssl_context.load_cert_chain(certfile=os.getenv('MQTT_SSL_CERT'), keyfile=os.getenv('MQTT_SSL_KEY'))
+            # Used CA certificate to generate certificates for mqtt server and clients.
+            ssl_context.load_verify_locations(cadata=ca_cert)
+
         # Set up a MiniMQTT Client
         self.mqtt_client = MQTT.MQTT(
             broker=os.getenv('MQTT_BROKER'),
@@ -34,7 +44,8 @@ class mqtt(MQTT.MQTT):
             username=os.getenv('MQTT_USER'),
             password=os.getenv('MQTT_PWD'),
             socket_pool=self.socket,
-            ssl_context=ssl.create_default_context()
+            is_ssl=is_ssl,
+            ssl_context=ssl_context
         )
 
         self.pub_topic = os.getenv('MQTT_PUB_TOPIC')

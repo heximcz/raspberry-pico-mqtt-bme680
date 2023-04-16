@@ -20,6 +20,10 @@ MQTT_BROKER="mqtt.example.com"
 MQTT_PORT=1883
 MQTT_USER="xxx"
 MQTT_PWD="xxx"
+# optional custom ssl certrificate. Set correct mqtt port and change is_ssl to True in call hx_mqtt.mqtt(...)
+MQTT_SSL_CA="ca.crt"
+MQTT_SSL_CERT="client.crt"
+MQTT_SSL_KEY="client.key"
 
 # NTP
 NTP_SERVER="ntp.nic.cz"
