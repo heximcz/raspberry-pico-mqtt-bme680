@@ -32,6 +32,13 @@ The second subscriber mode is optional when creating the ```mqtt = hx_mqtt.mqtt(
 
 Calling these functions is simple. In MQTT broker topic defined in `MQTT_SUB_TOPIC` send payload "restart" or "status".
 
+## SSL Support
+If you want the client to communicate with the MQTT server encrypted, several steps must be followed.
+
+1. generate certificates for the server and the client, for example according to [this guide](https://primalcortex.wordpress.com/2016/11/08/mqtt-mosquitto-broker-client-authentication-and-client-certificates/) or see example [gen_certs.sh](./docs/gen_certs.sh) in [docs](./docs/)
+2. copy the client certificate, key and the CA certificate with which you generated the certificates for the server and the client to the client root directory
+3. In the settings.toml, set the correct MQTT port and set the MQTT_SSL_... constants
+
 ## How to begin
 
 - Configure settings.toml and remember that MQTT_SUB_TOPIC must be different from MQTT_PUB_TOPIC
