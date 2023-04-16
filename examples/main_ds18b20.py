@@ -11,7 +11,7 @@ hx_board_LED.off()
 hx_wifi.connect(debug=False)
 
 # MQTT
-mqtt = hx_mqtt.mqtt(subscriber=True, debug=False)
+mqtt = hx_mqtt.mqtt(subscriber=True, is_ssl=False, debug=False)
 
 # Initialize one-wire bus on board pin GP17.
 ow_bus = OneWireBus(board.GP17)

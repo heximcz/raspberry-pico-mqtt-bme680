@@ -11,7 +11,7 @@ hx_board_LED.off()
 hx_wifi.connect(debug=False)
 
 # MQTT
-mqtt = hx_mqtt.mqtt(subscriber=True, debug=False)
+mqtt = hx_mqtt.mqtt(subscriber=True, is_ssl=False, debug=False)
 
 # I2C
 i2c = busio.I2C(scl=board.GP21, sda=board.GP20)
