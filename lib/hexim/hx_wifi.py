@@ -5,6 +5,7 @@ import microcontroller
 import rtc
 import socketpool
 import wifi
+import time
 
 def connect(debug: bool = False) -> None:
     if debug:
@@ -38,6 +39,9 @@ def connect(debug: bool = False) -> None:
         print("Error WiFi connect: {0}" . format(e))
         microcontroller.reset()
 
+    # wait before sync time
+    time.sleep(3)
+
     # Synchronize time over NTP
     try:
         time_pool = socketpool.SocketPool(wifi.radio)
@@ -47,4 +51,5 @@ def connect(debug: bool = False) -> None:
             print("The time has been synchronized.")
     except:
         print("Error: Cannot synchronize time!")
+        time.sleep(10)
         microcontroller.reset()
