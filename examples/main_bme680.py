@@ -2,6 +2,8 @@ import time
 import board
 import busio
 import microcontroller
+#import traceback
+from adafruit_minimqtt.adafruit_minimqtt import MMQTTException
 from lib.hexim import hx_bme680, hx_board_LED, hx_mqtt, hx_wifi
 
 # Board LED off by default
@@ -61,5 +63,16 @@ while True:
         print("Keyboard exit!")
         import sys
         sys.exit()
+    except MMQTTException as ex:
+        """
+        Rare exception in combination with (is_ssl=True) on (message == "status"):
+        File "adafruit_minimqtt/adafruit_minimqtt.py", line 1002, in loop
+        File "adafruit_minimqtt/adafruit_minimqtt.py", line 679, in ping
+        File "adafruit_minimqtt/adafruit_minimqtt.py", line 1041, in _wait_for_msg
+        """
+#        print(ex)
+#        traceback.print_exception(ex, ex, ex.__traceback__)
+        # non blocking state
+        pass
     except:
         microcontroller.reset()
