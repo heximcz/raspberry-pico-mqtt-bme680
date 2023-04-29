@@ -64,15 +64,17 @@ while True:
         import sys
         sys.exit()
     except MMQTTException as ex:
-        """
-        Rare exception in combination with (is_ssl=True) on (message == "status"):
-        File "adafruit_minimqtt/adafruit_minimqtt.py", line 1002, in loop
-        File "adafruit_minimqtt/adafruit_minimqtt.py", line 679, in ping
-        File "adafruit_minimqtt/adafruit_minimqtt.py", line 1041, in _wait_for_msg
-        """
+        # Rare exception in combination with (is_ssl=True) on (message == "status"):
+        # File "adafruit_minimqtt/adafruit_minimqtt.py", line 1002, in loop
+        # File "adafruit_minimqtt/adafruit_minimqtt.py", line 679, in ping
+        # File "adafruit_minimqtt/adafruit_minimqtt.py", line 1041, in _wait_for_msg
 #        print(ex)
 #        traceback.print_exception(ex, ex, ex.__traceback__)
-        # non blocking state
-        pass
+        # Non blocking state on (message == "status") but blocking when an error during in connect
+        # to mqtt (OpenSSL Error[0]: error:0A000126:SSL routines::unexpected eof while reading)
+        # Conclusion: ssl in circuitpython is very unstable. I did not observe any problems
+        # during the micropython test, even though there the certificates have
+        # to be converted to a different format.
+        microcontroller.reset()
     except:
         microcontroller.reset()
