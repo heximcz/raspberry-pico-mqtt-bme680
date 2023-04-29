@@ -75,6 +75,7 @@ while True:
         # Conclusion: ssl in circuitpython is very unstable. I did not observe any problems
         # during the micropython test, even though there the certificates have
         # to be converted to a different format.
+        # !! Potetionaly fixed by add wait berore pub in mqtt module, because this problem can theoretically be caused by slow wifi on the RPi Pico W
         microcontroller.reset()
     except:
         microcontroller.reset()
