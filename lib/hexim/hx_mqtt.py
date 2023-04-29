@@ -153,6 +153,8 @@ class mqtt(MQTT.MQTT):
         :params dict({}) msg
         :params string topic
         """
+        # wait before pub (fix slow wifi on Pico W / CircuitPython)
+        time.sleep(2)
         try:
             if topic is not None:
                 self.mqtt_client.publish(topic, json.dumps(msg))
