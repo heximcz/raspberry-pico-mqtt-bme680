@@ -69,7 +69,7 @@ class mqtt(MQTT.MQTT):
             self.mqtt_client.connect()
         except MQTT.MMQTTException as e:
             print(e)
-            time.sleep(10)
+            time.sleep(5)
             # Reboot device a try again
             microcontroller.reset()
 
@@ -138,8 +138,13 @@ class mqtt(MQTT.MQTT):
                 for i in wifi.radio.mac_address:
                     mac=mac+'{:02x}'.format(i)+":"
                 status["mac_adress"]=mac[:-1]
+                # Get uptime
+                days, remainder = divmod(time.monotonic(), 86400)
+                hours, remainder = divmod(remainder, 3600)
+                minutes, seconds = divmod(remainder, 60)
+                status["uptime"]=f"{int(days)} days, {int(hours)} hours, {int(minutes)} minutes, {int(seconds)} seconds"
 
-                # MQTT Publish on .../status
+                # MQTT Publish on 'MQTT_PUB_TOPIC'/status
                 self.pub(msg=status, topic=self.pub_topic+"/status")
             except:
                 microcontroller.reset()
